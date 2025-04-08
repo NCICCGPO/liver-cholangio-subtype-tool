@@ -1,5 +1,3 @@
-
-
 ## set command line arguments ----
 args <- commandArgs(trailingOnly = TRUE)
 data=args[1]
@@ -12,11 +10,11 @@ if(length(args)==0){
   stop("Requires command line arguments for data, gene representation and output folder.")
 }
 
-library(multiclassPairs)
-library(readr)
-library(dplyr)
-library(tibble)
-library(biomaRt)
+suppressPackageStartupMessages(library(multiclassPairs))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tibble))
+suppressPackageStartupMessages(library(biomaRt))
 
 Process_Cohorts=function(data, type){
    if (type=="ensembl"){
@@ -77,4 +75,3 @@ if (is.matrix(test_pred)) {
 dir.create(folder)
 write_tsv(cbind.data.frame(SampleID=rownames(processed_data),Assignment=x), file=paste(folder, "assignment.tsv", sep="/"))
 write_tsv(rownames_to_column(as.data.frame(test_pred), var="SampleID"), file=paste(folder,"assignment_confidence.tsv", sep="/"))
-

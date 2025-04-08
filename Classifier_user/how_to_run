@@ -1,7 +1,0 @@
-parameters: input  filename, gene naming, output folder: 
- docker run -v ./:$(pwd) lihcchol_classifier  $(pwd)/LICA-FR_normalized_read_count.tsv  ensembl  $(pwd)/France
- docker run -v ./:$(pwd) lihcchol_classifier  $(pwd)/LIRI-JP_normalized_read_count.tsv hugo $(pwd)/Japan
-
-Output files look like: 
-
-Assignment.tsv  and assignment_confidence.tsv files. 
