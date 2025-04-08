@@ -1,7 +1,7 @@
 FROM bioconductor/bioconductor_docker:devel
 
-RUN mkdir /home/analysis
-RUN cd /home/analysis
+RUN mkdir /app
+RUN cd /app
 
 RUN apt-get update
 RUN R -e "BiocManager::install('biomaRt', ask=F)"
@@ -10,13 +10,13 @@ RUN R -e "install.packages('readr', version='2.1.5')"
 RUN R -e "install.packages('dplyr', version='1.1.4')"
 RUN R -e "install.packages('tibble', version='3.2.1')"
 
-WORKDIR /home/analysis
+WORKDIR /app
 
-COPY classifier_run.R /home/analysis/classifier_run.R
+COPY ./.build/classifier_run.R /app/classifier_run.R
 
-COPY best_model.RDS /home/analysis/best_model.RDS
+COPY ./.build/best_model.RDS /app/best_model.RDS
 
-ENTRYPOINT ["Rscript", "/home/analysis/classifier_run.R"]
+ENTRYPOINT ["Rscript", "/app/classifier_run.R"]
 
 
 
