@@ -6,7 +6,7 @@
 
 - [Getting Started](#getting-started)
 - [Run Classifier Tool](#run-classifier-tool)
-- [Documentation](#documentation)
+- [Troubleshooting](#troubleshooting)
 - [Maintainers](#maintainers)
 
 ## Getting Started
@@ -53,9 +53,9 @@ In the example below the input
 > docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/LIRI-JP_normalized_read_count.tsv hugo $(pwd)/results/Japan
 >```
 
-## Documentation
+## Troubleshooting
 
-For common troubleshooting issues, see [Troubleshooting](doc/debugging_classifier.md)
+For common issues, see [Troubleshooting](doc/debugging_classifier.md)
 
 ## Maintainers
 
