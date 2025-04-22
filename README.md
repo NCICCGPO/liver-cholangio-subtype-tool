@@ -7,6 +7,7 @@
 - [Getting Started](#getting-started)
 - [Run Classifier Tool](#run-classifier-tool)
 - [Troubleshooting](#troubleshooting)
+- [Examples](#examples)
 - [Maintainers](#maintainers)
 
 ## Getting Started
@@ -15,22 +16,43 @@ Assumes [Docker Desktop](https://docs.docker.com/get-started/get-docker/) is ins
 
 1. Start up Docker Desktop Application
 
-2. Build the liver cholangiocarcinoma subtyping Docker image
+2. Install [Synapse client](https://help.synapse.org/docs/Installing-Synapse-API-Clients.1985249668.html) and create an account
+
+3. Sign into Applications
+
+    Synapse Sign In
+
     ```bash
-    docker build -t lihcchol_classifier:latest -f .build/Dockerfile .
+    synapse login --remember-me
     ```
 
-    Check your build by running `docker images`. You should see the output:
+    Docker Sign In (if not already)
+
+    ```bash
+    docker login
     ```
-    REPOSITORY              TAG        IMAGE ID        CREATED       SIZE
-    lihcchol_classifier     latest     be8490fb9f6a    ...           ...
+
+    Synapse Docker Registry Sign In - using Syanpse username and password
+
+    ```bash
+    docker login -u <synapse-username> docker.synapse.org
     ```
 
-    > The Docker Image only needs to be built once
+4. Pull Docker image
 
-## Run Classifier Tool
+    ```bash
+    docker pull docker.synapse.org/syn29568296/lihcchol_classifier:latest
+    ```
 
-## Data Prep
+    Additional support can be found at the [Synapse Docker Registry](https://help.synapse.org/docs/Synapse-Docker-Registry.2011037752.html#SynapseDockerRegistry-UsingDockerImagesStoredintheSynapseDockerRegistry).
+
+*Note: The Docker image only needs to be built once*
+
+> Alternatively, instructions on how to build the Docker image are found on the [Build Docker Image Page](doc/pull_image.md). Installing and logging into Synapse is not required for this method.
+
+## Run the Classifier Tool
+
+### Data Prep
 
 The tool accepts gene expression data in any unit (count, TPM, etc.) because it leverages relative ranking within a dataset. No normalization is needed.
 
@@ -45,15 +67,17 @@ The input dataset needs to have samples as rows and genes as columns. Example sh
 | sample5	| 120.2224933600993	| 0.00274814239449383 | ... |
 | ...        |   ...    |    ...     | ...   |
 
-## Subtype Classification
+### Subtype Classification
 
 The classifier has multiple parameter inputs: `filename`, `gene naming`, and `output folder`
 
-+ The two modes for `gene naming` are **ensembl** and **hugo**
++ The two modes for `gene naming` are **"ensembl"** and **"hugo"**
 
     ```bash
-    docker run --rm -v ./:$(pwd) lihcchol_classifier  $(pwd)/data/inputdata.tsv  ensembl  $(pwd)/results/outputfolder
+    docker run --rm -v ./:$(pwd) docker.synapse.org/syn29568296/lihcchol_classifier $(pwd)/data/inputdata.tsv  ensembl  $(pwd)/results/outputfolder
     ```
+
+    > If image was built directly by following the instructions at [Docker Image Page](doc/pull_image.md) then replace "docker.synapse.org/syn29568296/lihcchol_classifier" with "lihcchol_classifier"
 
 This will result in two output files:
 
@@ -81,15 +105,9 @@ And the `assignment_confidence.tsv` will consist of 6 columns: sample ID and the
 | sample4	| 0.8426014285714287	| 0.01125	| 0.0311	| 0.07573746031746031	| 0.03931111111111111 |
 | sample5	| 0.405217987012987	| 0.024346666666666666	| 0.0819930303030303	| 0.1716708008658009 | 0.3167715151515152 |
 
-## Example with ICGC Datasets
+## Examples
 
-> ```bash
-> docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/LICA-FR_normalized_read_count.tsv ensembl $(pwd)/results/France
->```
-
-> ```bash
-> docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/LIRI-JP_normalized_read_count.tsv hugo $(pwd)/results/Japan
->```
+ICGC dataset examples are found on the [Example Run Page](doc/icgc_example.md).
 
 ## Troubleshooting
 
