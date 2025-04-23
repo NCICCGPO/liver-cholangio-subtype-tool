@@ -1,5 +1,6 @@
 # Tutorial
 
+## Download TCGA Gene Expression data
 Copy contents of `data/example_caseids.txt` into the Repository Tab at GDC data portal. Select the following filters: 
 
 Experimental Strategy `RNA-Seq`
@@ -12,21 +13,27 @@ The total number of files selected should show 8 files. Next select the Manifest
 
 Install [GDC Data Transfer Tool Client](https://gdc.cancer.gov/access-data/gdc-data-transfer-tool). For usage details, refer to the official [GDC Users Guide](https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/)
 
-Download gene expression data
+Download gene expression data and merge into one gene expression file
 ```bash
 gdc-client download -m src/gdc_manifest.txt --dir data/example_raw_data
-```
 
-Consolidate into 1 file
-```bash
 python scripts/merge_gdc_data.py --sample_sheet data/gdc_sample_sheet.tsv --dir data/example_raw_data --out data/example_data.tsv
 ```
- 
+
+This creates the file `data/example_data.tsv` that will be used directly by the classifier tool.
+
+ ## Run tool: Obtain LIHCCHOL Subtype Classifications
+ Subtype classifications can now be assigned to each sample. We will use the TCGA gene expression file `data/example_data.tsv`.
+
  ```bash
- docker run --rm -v ./:$(pwd) docker.synapse.org/syn29568296/lihcchol_classifier $(pwd)/data/example_data.tsv ensembl  $(pwd)/results/tutorial
+ docker run --rm -v ./:$(pwd) docker.synapse.org/syn29568296/lihcchol_classifier $(pwd)/data/example_data.tsv ensembl $(pwd)/results/tutorial
  ```
 
+ The last three arguments are the gene expression data, gene feature mode (`ensembl` or `hugo` are accepted), and the output folder name.
 
+### Inspect results
+
+Two output files are created. The first contains the assigned subtype classification for each sample.
 ```bash
 cat results/tutorial/assignment.tsv 
 ```
@@ -43,7 +50,7 @@ cat results/tutorial/assignment.tsv
  |  TCGA-2Y-A9GW-01A	| 	Inflammatory Class | 
  
 
-
+The second file contains information on model confidence for each sample. The subtype with the highest confidence is the assigned sutype found in the first file.
 ```bash
 cat results/tutorial/assignment_confidence.tsv
 ```
