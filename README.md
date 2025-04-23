@@ -95,7 +95,7 @@ Where the `assignment.tsv` will consist of two columns: sample ID and the labele
 | sample5	| Beta catenin mutated |
 | ...        |   ...    |
 
-And the `assignment_confidence.tsv` will consist of 6 columns: sample ID and the likelihood of all potential subtype:
+And the `assignment_confidence.tsv` will consist of 6 columns: sample ID and the likelihood of each potential subtype:
 
 | SampleID	| Beta catenin mutated	| CCA-like Progenitor	| HCC-like Progenitor	| Inflammatory | ClassTP53 mutated |
 | :---        |    :----:   |     :----:    |   :----:   |  :----:   | ---: |
