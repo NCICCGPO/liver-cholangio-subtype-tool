@@ -7,7 +7,7 @@
 - [Getting Started](#getting-started)
 - [Run Classifier Tool](#run-classifier-tool)
 - [Troubleshooting](#troubleshooting)
-- [Examples](#examples)
+- [Tutorials](#tutorials)
 - [Maintainers](#maintainers)
 
 ## Getting Started
@@ -105,9 +105,11 @@ And the `assignment_confidence.tsv` will consist of 6 columns: sample ID and the
 | sample4	| 0.8426014285714287	| 0.01125	| 0.0311	| 0.07573746031746031	| 0.03931111111111111 |
 | sample5	| 0.405217987012987	| 0.024346666666666666	| 0.0819930303030303	| 0.1716708008658009 | 0.3167715151515152 |
 
-## Examples
+## Tutorials
 
-ICGC dataset examples are found on the [Example Run Page](doc/icgc_example.md).
+A guided walk through using TCGA data is found on the [Tutorial Page](doc/tutorial.md).
+
+A quick example of using the tool with ICGC datasets are found on [Example Run Page](doc/icgc_example.md).
 
 ## Troubleshooting
 
