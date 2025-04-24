@@ -16,39 +16,27 @@ Assumes [Docker Desktop](https://docs.docker.com/get-started/get-docker/) is ins
 
 1. Start up Docker Desktop Application
 
-2. Install [Synapse client](https://help.synapse.org/docs/Installing-Synapse-API-Clients.1985249668.html) and create an account
-
-3. Sign into Applications
-
-    Synapse Sign In
-
-    ```bash
-    synapse login --remember-me
-    ```
-
+2. Sign into Applications
     Docker Sign In (if not already)
 
     ```bash
     docker login
     ```
 
-    Synapse Docker Registry Sign In - using Syanpse username and password
+3. Pull Docker image
 
-    ```bash
-    docker login -u <synapse-username> docker.synapse.org
-    ```
+    The containerized tool can be accessed directly from a pre-built Docker image file or by building one. *We recommend acessing directly from a pre-built Docker image file.*
 
-4. Pull Docker image
+    1. Download the pre-built Docker image file "lihcchol_classifier.tar.gz" from the Publication Page.
 
-    ```bash
-    docker pull docker.synapse.org/syn29568296/lihcchol_classifier:latest
-    ```
-
-    Additional support can be found at the [Synapse Docker Registry](https://help.synapse.org/docs/Synapse-Docker-Registry.2011037752.html#SynapseDockerRegistry-UsingDockerImagesStoredintheSynapseDockerRegistry).
+    2. Load image
+        ```bash
+        docker load -i lihcchol_classifier.tar.gz 
+        ```
 
 *Note: The Docker image only needs to be built once*
 
-> Alternatively, instructions on how to build the Docker image are found on the [Build Docker Image Page](doc/pull_image.md). Installing and logging into Synapse is not required for this method.
+> Alternatively, instructions on how to build the Docker image are found on the [Build Docker Image Page](doc/pull_image.md).
 
 ## Run the Classifier Tool
 
@@ -74,10 +62,8 @@ The classifier has multiple parameter inputs: `filename`, `gene naming`, and `ou
 + The two modes for `gene naming` are **"ensembl"** and **"hugo"**
 
     ```bash
-    docker run --rm -v ./:$(pwd) docker.synapse.org/syn29568296/lihcchol_classifier $(pwd)/data/inputdata.tsv  ensembl  $(pwd)/results/outputfolder
+    docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/inputdata.tsv  ensembl  $(pwd)/results/outputfolder
     ```
-
-    > If image was built directly by following the instructions at [Docker Image Page](doc/pull_image.md) then replace "docker.synapse.org/syn29568296/lihcchol_classifier" with "lihcchol_classifier"
 
 This will result in two output files:
 
