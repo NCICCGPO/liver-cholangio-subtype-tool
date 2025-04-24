@@ -1,5 +1,33 @@
 # Tutorial
 
+## Getting Started
+
+Assumes [Docker Desktop](https://docs.docker.com/get-started/get-docker/) is installed on your machine
+
+1. Start up Docker Desktop Application
+
+2. Sign into Applications
+    Docker Sign In (if not already)
+
+    ```bash
+    docker login
+    ```
+
+3. Pull Docker image
+
+    The containerized tool can be accessed directly from a pre-built Docker image file or by building one. *We recommend acessing directly from a pre-built Docker image file.*
+
+    1. Download the pre-built Docker image file "lihcchol_classifier.tar.gz" from the Publication Page.
+
+    2. Load image
+        ```bash
+        docker load -i lihcchol_classifier.tar.gz 
+        ```
+
+*Note: The Docker image only needs to be built once*
+
+> Alternatively, instructions on how to build the Docker image are found on the [Build Docker Image Page](doc/pull_image.md).
+
 ## Download TCGA Gene Expression data
 Copy contents of `data/example_caseids.txt` into the Repository Tab at GDC data portal. Select the following filters: 
 
@@ -26,7 +54,7 @@ This creates the file `data/example_data.tsv` that will be used directly by the 
  Subtype classifications can now be assigned to each sample. We will use the TCGA gene expression file `data/example_data.tsv`.
 
  ```bash
- docker run --rm -v ./:$(pwd) docker.synapse.org/syn29568296/lihcchol_classifier $(pwd)/data/example_data.tsv ensembl $(pwd)/results/tutorial
+ docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/example_data.tsv ensembl $(pwd)/results/tutorial
  ```
 
  The last three arguments are the gene expression data, gene feature mode (`ensembl` or `hugo` are accepted), and the output folder name.
