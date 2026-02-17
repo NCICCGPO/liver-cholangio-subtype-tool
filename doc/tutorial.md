@@ -73,8 +73,7 @@ cat outputfolder/assignment.tsv
 | sample3	| Focal genomic instability | FIST |
 | sample4	|  Focal genomic instability | FIST |
 | sample5	| Inflammatory | Inflammatory |
-| ...        |   ...    |
-
+| ...        |   ...    | ...    |
 
 The second file contains information on model confidence for each sample. The subtype with the highest confidence is the assigned sutype found in the first file.
 ```bash

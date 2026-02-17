@@ -79,7 +79,7 @@ Where the `assignment.tsv` will consist of two columns: sample ID and the labele
 | sample3	| Focal genomic instability | FIST |
 | sample4	|  Focal genomic instability | FIST |
 | sample5	| Inflammatory | Inflammatory |
-| ...        |   ...    |
+| ...        |   ...    | ...    |
 
 
 And the `assignment_confidence.tsv` will consist of 6 columns: sample ID and the likelihood of each potential subtype:
