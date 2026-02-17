@@ -59,10 +59,10 @@ The input dataset needs to have samples as rows and genes as columns. Example sh
 
 The classifier has multiple parameter inputs: `filename`, `gene naming`, and `output folder`
 
-+ The two modes for `gene naming` are **"ensembl"** and **"hugo"**
++ The three modes for `gene naming` are **"ensembl"**, **"hugo"** and **entrez**
 
     ```bash
-    docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/example_data.tsv  ensembl  $(pwd)/outputfolder
+    docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/example_data.tsv ensembl $(pwd)/outputfolder
     ```
 
 This will result in two output files:

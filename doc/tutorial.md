@@ -54,10 +54,10 @@ This creates the file `data/example_data.tsv` that will be used directly by the 
  Subtype classifications can now be assigned to each sample. We will use the TCGA gene expression file `data/example_data.tsv`.
 
  ```bash
- docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/example_data.tsv   ensembl  $(pwd)/outputfolder
+ docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/example_data.tsv ensembl $(pwd)/outputfolder
  ```
 
- The last three arguments are the gene expression data, gene feature mode (`ensembl` or `hugo` are accepted), and the output folder name.
+ The last three arguments are the gene expression data, gene feature mode (`ensembl` or `hugo` or `entrez` are accepted), and the output folder name.
 
 ### Inspect results
 
