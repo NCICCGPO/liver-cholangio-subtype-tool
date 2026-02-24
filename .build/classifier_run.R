@@ -1,3 +1,5 @@
+
+
 ## set command line arguments ----
 args <- commandArgs(trailingOnly = TRUE)
 data=args[1]
@@ -10,11 +12,11 @@ if(length(args)==0){
   stop("Requires command line arguments for data, gene representation and output folder.")
 }
 
-suppressPackageStartupMessages(library(multiclassPairs))
-suppressPackageStartupMessages(library(readr))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(tibble))
-suppressPackageStartupMessages(library(biomaRt))
+library(multiclassPairs)
+library(readr)
+library(dplyr)
+library(tibble)
+library(biomaRt)
 
 Process_Cohorts=function(data, type){
    if (type=="ensembl"){
@@ -72,6 +74,30 @@ if (is.factor(test_pred)) {
 if (is.matrix(test_pred)) {
   x <- colnames(test_pred)[max.col(test_pred)]
 }
+
+y=rep.int(NA, length(x))
+z=rep.int(NA, length(x))
+
+y[x=="Inflammatory Class"]="Inflammatory"
+y[x=="CCA-like Progenitor"]="Cholangiocyte like stem"
+y[x=="HCC-like Progenitor"]="Hepatocyte like stem"
+y[x=="TP53 mutated"]="Focal genomic instability"
+y[x=="Beta catenin mutated"]="Wnt pathway activated"
+
+z[x=="Inflammatory Class"]="Inflammatory"
+z[x=="CCA-like Progenitor"]="Chol-like Stem"
+z[x=="HCC-like Progenitor"]="Hep-like Stem"
+z[x=="TP53 mutated"]="FIST"
+z[x=="Beta catenin mutated"]="Wnt path"
+
+colnames(test_pred)[colnames(test_pred)=="Inflammatory Class"]="Inflammatory"
+colnames(test_pred)[colnames(test_pred)=="CCA-like Progenitor"]="Cholangiocyte like stem"
+colnames(test_pred)[colnames(test_pred)=="HCC-like Progenitor"]="Hepatocyte like stem"
+colnames(test_pred)[colnames(test_pred)=="TP53 mutated"]="Focal genomic instability"
+colnames(test_pred)[colnames(test_pred)=="Beta catenin mutated"]="Wnt pathway activated"
+
+
 dir.create(folder)
-write_tsv(cbind.data.frame(SampleID=rownames(processed_data),Assignment=x), file=paste(folder, "assignment.tsv", sep="/"))
+write_tsv(cbind.data.frame(SampleID=rownames(test_pred),Assignment=y, Assignment_shortname=z), file=paste(folder, "assignment.tsv", sep="/"))
 write_tsv(rownames_to_column(as.data.frame(test_pred), var="SampleID"), file=paste(folder,"assignment_confidence.tsv", sep="/"))
+

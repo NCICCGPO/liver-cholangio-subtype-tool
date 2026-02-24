@@ -59,10 +59,10 @@ The input dataset needs to have samples as rows and genes as columns. Example sh
 
 The classifier has multiple parameter inputs: `filename`, `gene naming`, and `output folder`
 
-+ The two modes for `gene naming` are **"ensembl"** and **"hugo"**
++ The three modes for `gene naming` are **"ensembl"**, **"hugo"** and **entrez**
 
     ```bash
-    docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/inputdata.tsv  ensembl  $(pwd)/results/outputfolder
+    docker run --rm -v ./:$(pwd) lihcchol_classifier $(pwd)/data/example_data.tsv ensembl $(pwd)/outputfolder
     ```
 
 This will result in two output files:
@@ -72,24 +72,28 @@ This will result in two output files:
 
 Where the `assignment.tsv` will consist of two columns: sample ID and the labeled subtype:
 
-| SampleID	| Assignment |
-| :---    | ---: |
-| sample1	| HCC-like Progenitor |
-| sample2	| Beta catenin mutated |
-| sample3	| Beta catenin mutated |
-| sample4	| Beta catenin mutated |
-| sample5	| Beta catenin mutated |
-| ...        |   ...    |
+| SampleID	| Assignment | Assignment_shortname |
+| :---    |  :----:   |  ---: |
+| sample1	| Focal genomic instability | FIST |
+| sample2	| Hepatocyte like stem | Hep-like Stem |
+| sample3	| Focal genomic instability | FIST |
+| sample4	|  Focal genomic instability | FIST |
+| sample5	| Inflammatory | Inflammatory |
+| ...        |   ...    | ...    |
+
 
 And the `assignment_confidence.tsv` will consist of 6 columns: sample ID and the likelihood of each potential subtype:
 
-| SampleID	| Beta catenin mutated	| CCA-like Progenitor	| HCC-like Progenitor	| Inflammatory | ClassTP53 mutated |
-| :---        |    :----:   |     :----:    |   :----:   |  :----:   | ---: |
-| sample1	| 0.0034	| 0.011866666666666666	| 0.9600248893065998	| 0.02185130116959065	| 0.002857142857142857 |
-| sample2	| 0.9003633333333333	| 0.01425	| 0.0078	| 0.05711999999999999	| 0.020466666666666668 |
-| sample3	| 0.7836335714285713	| 0.006083333333333333	| 0.005573333333333333	| 0.1763364285714286 | 0.028373333333333334 |
-| sample4	| 0.8426014285714287	| 0.01125	| 0.0311	| 0.07573746031746031	| 0.03931111111111111 |
-| sample5	| 0.405217987012987	| 0.024346666666666666	| 0.0819930303030303	| 0.1716708008658009 | 0.3167715151515152 |
+
+| SampleID              | Wnt pathway activated | Cholangiocyte like stem | Hepatocyte like stem | Inflammatory        | Focal genomic instability |
+|-----------------------|----------------------|--------------------------|----------------------|--------------------|---------------------------|
+| sample1      | 0.019491904761904762 | 0.0086                   | 0.004946666666666666 | 0.09395428571428573 | 0.8730071428571428        |
+| sample2     | 0.010566666666666665 | 0.04947857142857142      | 0.8326445238095237   | 0.06576357142857144 | 0.04154666666666667       |
+| sample3      | 0.020771904761904766 | 0.01                     | 0.012066666666666667 | 0.1007442857142857  | 0.856417142857143         |
+| sample4     | 0.06094666666666667  | 0.019                    | 0.02449              | 0.06654333333333333 | 0.8290200000000001        |
+| sample5      | 0.0302387034044387   | 0.010594285714285716     | 0.0022               | 0.9278027085169733  | 0.029164302364302366      |
+| ...     | ...  | ...    | ... | ...   | ...       |
+
 
 ## Tutorials
 
